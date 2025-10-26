@@ -1,0 +1,25 @@
+using Microsoft.AspNetCore.Mvc;
+using NewsFetcherAPI.Services;
+
+namespace NewsFetcherAPI.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class NewsController : ControllerBase
+    {
+        private readonly INewsService _newsService;
+
+        public NewsController(INewsService newsService)
+        {
+            _newsService = newsService;
+        }
+
+        [HttpGet("latest")]
+        public async Task<IActionResult> GetLatestNews([FromQuery] int count = 5)
+        {
+            var news = await _newsService.GetLatestNewsAsync(count);
+            return Ok(news);
+        }
+
+    }
+}
