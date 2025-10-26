@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Build artifacts
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.log
+*.obj
+*.other
+
+# Certificates
+certs/
+
+# Rider / VSCode / IDE files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/
+.idea/
