@@ -21,5 +21,13 @@ namespace NewsFetcherAPI.Controllers
             return Ok(news);
         }
 
+        [HttpGet("find")]
+        public async Task<IActionResult> FindArticle([FromQuery] string query)
+        {
+            var article = await _newsService.GetArticleByTitleOrAuthorAsync(query);
+            if (article == null)
+                return NotFound("No matching article found.");
+            return Ok(article);
+        }
     }
 }
