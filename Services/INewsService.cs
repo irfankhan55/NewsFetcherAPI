@@ -6,5 +6,6 @@ namespace NewsFetcherAPI.Services
     {
         Task<IEnumerable<Article>> GetLatestNewsAsync(int count);
         Task<Article?> GetArticleByTitleOrAuthorAsync(string query);
+        Task<IEnumerable<Article>> SearchByKeywordAsync(string keyword);
     }
 }

@@ -21,6 +21,13 @@ namespace NewsFetcherAPI.Controllers
             return Ok(news);
         }
 
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchNews([FromQuery] string keyword)
+        {
+            var results = await _newsService.SearchByKeywordAsync(keyword);
+            return Ok(results);
+        }
+
         [HttpGet("find")]
         public async Task<IActionResult> FindArticle([FromQuery] string query)
         {
