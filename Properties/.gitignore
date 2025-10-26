@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Build artifacts
+*.obj
+*.other
+certs/
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.log
