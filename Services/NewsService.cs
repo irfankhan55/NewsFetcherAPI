@@ -1,6 +1,9 @@
 using Microsoft.Extensions.Caching.Memory;
 using NewsFetcherAPI.Models;
 using System.Net.Http.Json;
+using NewsFetcherAPI.Configurators;
+using Microsoft.Extensions.Options;
+
 
 namespace NewsFetcherAPI.Services
 {
@@ -8,13 +11,12 @@ namespace NewsFetcherAPI.Services
     {
         private readonly HttpClient _httpClient;
         private readonly IMemoryCache _cache;
-        private readonly string _apiKey = "e01ac10cdd55771632a98efa8014e964"; // Replace this
-        private readonly string _baseUrl = "https://gnews.io/api/v4/";
-
-         public NewsService(IMemoryCache cache)
+        private readonly GNewsSettings _settings;
+         public NewsService(IMemoryCache cache, IOptions<GNewsSettings> settings)
         {
             _httpClient = new HttpClient();
             _cache = cache;
+            _settings = settings.Value;
         }
 
         public async Task<IEnumerable<Article>> GetLatestNewsAsync(int count)
@@ -23,7 +25,7 @@ namespace NewsFetcherAPI.Services
             if (_cache.TryGetValue(cacheKey, out IEnumerable<Article> cachedNews))
                 return cachedNews;
 
-            var url = $"{_baseUrl}top-headlines?max={count}&lang=en&token={_apiKey}";
+            var url = $"{_settings.BaseUrl}top-headlines?max={count}&lang=en&token={_settings.ApiKey}";
             var response = await _httpClient.GetFromJsonAsync<GNewsResponse>(url)
                            ?? new GNewsResponse { Articles = new List<Article>() };
 
@@ -43,7 +45,7 @@ namespace NewsFetcherAPI.Services
                 return cachedArticle;
 
             // Use title-specific search in API
-            var titleUrl = $"{_baseUrl}search?q={Uri.EscapeDataString(query)}&in=title&lang=en&token={_apiKey}";
+            var titleUrl = $"{_settings.BaseUrl}search?q={Uri.EscapeDataString(query)}&in=title&lang=en&token={_settings.ApiKey}";
             var titleResponse = await _httpClient.GetFromJsonAsync<GNewsResponse>(titleUrl);
             var titleArticles = titleResponse?.Articles ?? new List<Article>();
 
@@ -77,7 +79,7 @@ namespace NewsFetcherAPI.Services
             if (_cache.TryGetValue(cacheKey, out IEnumerable<Article> cachedResults))
                 return cachedResults;
 
-            var url = $"{_baseUrl}search?q={Uri.EscapeDataString(keyword)}&lang=en&token={_apiKey}";
+            var url = $"{_settings.BaseUrl}search?q={Uri.EscapeDataString(keyword)}&lang=en&token={_settings.ApiKey}";
             var response = await _httpClient.GetFromJsonAsync<GNewsResponse>(url);
 
             var articles = response?.Articles ?? new List<Article>();
