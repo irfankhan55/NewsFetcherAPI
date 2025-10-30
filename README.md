@@ -19,12 +19,12 @@ try any endpoint by clicking Execute Button
 
 ## 🧭 Running Https Profile
 
-# step 1.
+### step 1.
 uncomment the following lines from 'appsettings.json' file.
 
 [![https comments](docs/images/https-comments.png)]
 
-# step 2.
+### step 2.
 You need a self signed certificate to run 'HTTPS' profile. In the Base folder 'NewsFetcherAPI' please run the following commands one by one.
 
 ```bash
@@ -40,17 +40,17 @@ openssl pkcs12 -export -out certs/devcert.pfx -inkey certs/devcert.key -in certs
 sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain certs/devcert.crt
 
 ```
+
 Enter your password if prompted.
 
 You will now see three files under the certs folder. 
  
  [![Certs](docs/images/certs.png)]
 
-# step 3.
-    
-    Goto your keychanin and make sure the localhost certificate in your keychain is always trusted.
+### step 3.
+Goto your keychanin and make sure the localhost certificate in your keychain is always trusted.
 
-# step 4.
+### step 4.
 
 ```bash
 dotnet clean
@@ -59,6 +59,6 @@ dotnet build
 
 dotnet run --launch-profile "https"
 ```
-# step 5.
+### step 5.
 
 Open Swagger UI in your browser with https profile: [https://localhost:7184/swagger/index.html](https://localhost:7184/swagger/index.html)
