@@ -1,4 +1,5 @@
 using NewsFetcherAPI.Services;
+using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<NewsFetcherAPI.Configurators.GNewsSettings>(
@@ -10,12 +11,12 @@ builder.Services.AddMemoryCache();
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    options.SwaggerDoc("v1", new ()
     {
         Version = "v1",
         Title = "NewsFetcher API",
-        Description = "A simple .NET 8 Web API for fetching and searching news articles",
-        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        Description = "A simple .NET 10 Web API for fetching and searching news articles",
+        Contact = new()
         {
             Name = "Irfan Khan",
             Email = "irfank480@gmail.com"
