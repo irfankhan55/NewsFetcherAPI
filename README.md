@@ -7,13 +7,14 @@ This project supports **both HTTP and HTTPS** endpoints.
 ```bash
 git clone https://github.com/irfankhan55/NewsFetcherAPI.git
 cd NewsFetcherAPI
+cd NewsFetcherAPIProject
 dotnet build
 dotnet run
 ```
 
 Open Swagger UI in your browser: [http://localhost:5000/swagger/index.html](http://localhost:5000/swagger/index.html)
 
-[![Swagger UI](docs/images/SwaggerUI.png)]
+[![Swagger UI](NewsFetcherAPIProject/docs/images/SwaggerUI.png)]
 
 try any endpoint by clicking Execute Button
 
@@ -22,7 +23,7 @@ try any endpoint by clicking Execute Button
 ### step 1.
 uncomment the following lines from 'appsettings.json' file.
 
-[![https comments](docs/images/https-comments.png)]
+[![https comments](NewsFetcherAPIProject/docs/images/https-comments.png)]
 
 ### step 2.
 You need a self signed certificate to run 'HTTPS' profile. In the Base folder 'NewsFetcherAPI' please run the following commands one by one.
@@ -45,7 +46,7 @@ Enter your password if prompted.
 
 You will now see three files under the certs folder. 
  
- [![Certs](docs/images/certs.png)]
+ [![Certs](NewsFetcherAPIProject/docs/images/certs.png)]
 
 ### step 3.
 Goto your keychanin and make sure the localhost certificate in your keychain is always trusted.
