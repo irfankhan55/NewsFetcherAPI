@@ -22,7 +22,7 @@ jobs:
       run: dotnet restore
       working-directory: ./NewsFetcherAPIProject
 
-    - name: Build
+    - name: Build and test
       run: dotnet build --no-restore
       working-directory: ./NewsFetcherAPIProject
 
