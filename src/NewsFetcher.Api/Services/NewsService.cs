@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Caching.Memory;
 using NewsFetcherAPI.Models;
-using System.Net.Http.Json;
 using NewsFetcherAPI.Configurators;
 using Microsoft.Extensions.Options;
 
