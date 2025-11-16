@@ -7,7 +7,7 @@ This project supports **both HTTP and HTTPS** endpoints.
 ```bash
 git clone https://github.com/irfankhan55/NewsFetcherAPI.git
 cd NewsFetcherAPI
-cd src\NewsFetcher.Api
+cd src/NewsFetcher.Api
 dotnet build
 dotnet run
 ```
