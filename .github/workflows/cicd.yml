@@ -68,7 +68,7 @@ jobs:
 
         for trx in ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx; do
           if [ -f "$trx" ]; then
-            xmllint --xpath '//Results/UnitTestResult' "$trx" | \
+            xmllint --xpath '//*[local-name()="UnitTestResult"]' "$trx" | \
             tr '>' '\n' | grep 'UnitTestResult ' | while read line; do
               test=$(echo "$line" | sed -E 's/.*testName="([^"]+)".*/\1/')
               outcome=$(echo "$line" | sed -E 's/.*outcome="([^"]+)".*/\1/')
@@ -77,3 +77,4 @@ jobs:
             done
           fi
         done
+      shell: /usr/bin/bash
