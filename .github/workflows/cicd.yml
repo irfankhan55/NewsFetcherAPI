@@ -61,11 +61,9 @@ jobs:
 
     - name: Generate Test Summary Table
       run: |
-          echo "## Unit Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "| Test | Outcome | Duration |" >> $GITHUB_STEP_SUMMARY
-          echo "|------|---------|----------|" >> $GITHUB_STEP_SUMMARY
-          grep -oP '<UnitTestResult testName="\K[^"]+' ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx | while read test; do
-            outcome=$(grep -oP "testName=\"$test\" outcome=\"\K[^\"]+" ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx)
-            duration=$(grep -oP "testName=\"$test\" .* duration=\"\K[^\"]+" ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx)
-            echo "| $test | $outcome | $duration |" >> $GITHUB_STEP_SUMMARY
-          done
+        sudo apt-get install -y libxml2-utils  # for xmllint
+        echo "## Unit Test Results" >> $GITHUB_STEP_SUMMARY
+        echo "| Test | Outcome | Duration |" >> $GITHUB_STEP_SUMMARY
+        echo "|------|---------|----------|" >> $GITHUB_STEP_SUMMARY
+        xmllint --xpath '//UnitTestResult' ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx | \
+        sed -E 's/<UnitTestResult testName="([^"]+)" outcome="([^"]+)" duration="([^"]+)".*/| \1 | \2 | \3 |/g' >> $GITHUB_STEP_SUMMARY
