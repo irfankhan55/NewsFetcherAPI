@@ -9,8 +9,7 @@
 
 
   <ItemGroup>
-    <!-- Reference your main project -->
-      <ProjectReference Include="..\..\NewsFetcherAPI.csproj" />
+      <ProjectReference Include="..\..\src\NewsFetcher.Api\NewsFetcherAPI.csproj" />
   </ItemGroup>
 
 
