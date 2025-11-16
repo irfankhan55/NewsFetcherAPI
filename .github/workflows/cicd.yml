@@ -49,6 +49,12 @@ jobs:
       run: dotnet build --no-restore
       working-directory: ./tests/NewsFetcherAPI.UnitTests
 
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Run Tests and Collect Results
+      run: dotnet test --no-build --logger "trx;LogFileName=TestResults.trx" --results-directory ./TestResults
       working-directory: ./tests/NewsFetcherAPI.UnitTests
+
+    - name: Publish Test Results
+      uses: actions/upload-artifact@v3
+      with:
+        name: TestResults
+        path: ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx
