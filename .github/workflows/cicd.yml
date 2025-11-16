@@ -61,9 +61,19 @@ jobs:
 
     - name: Generate Test Summary Table
       run: |
-        sudo apt-get install -y libxml2-utils  # for xmllint
+        sudo apt-get install -y libxml2-utils
         echo "## Unit Test Results" >> $GITHUB_STEP_SUMMARY
         echo "| Test | Outcome | Duration |" >> $GITHUB_STEP_SUMMARY
         echo "|------|---------|----------|" >> $GITHUB_STEP_SUMMARY
-        xmllint --xpath '//UnitTestResult' ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx | \
-        sed -E 's/<UnitTestResult testName="([^"]+)" outcome="([^"]+)" duration="([^"]+)".*/| \1 | \2 | \3 |/g' >> $GITHUB_STEP_SUMMARY
+
+        for trx in ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx; do
+          if [ -f "$trx" ]; then
+            xmllint --xpath '//Results/UnitTestResult' "$trx" | \
+            tr '>' '\n' | grep 'UnitTestResult ' | while read line; do
+              test=$(echo "$line" | sed -E 's/.*testName="([^"]+)".*/\1/')
+              outcome=$(echo "$line" | sed -E 's/.*outcome="([^"]+)".*/\1/')
+              duration=$(echo "$line" | sed -E 's/.*duration="([^"]+)".*/\1/')
+              echo "| $test | $outcome | $duration |" >> $GITHUB_STEP_SUMMARY
+            done
+          fi
+        done
