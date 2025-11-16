@@ -60,7 +60,7 @@ jobs:
         path: ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx
 
     - name: Generate Test Summary Table
-        run: |
+      run: |
           echo "## Unit Test Results" >> $GITHUB_STEP_SUMMARY
           echo "| Test | Outcome | Duration |" >> $GITHUB_STEP_SUMMARY
           echo "|------|---------|----------|" >> $GITHUB_STEP_SUMMARY
