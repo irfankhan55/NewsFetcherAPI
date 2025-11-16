@@ -58,3 +58,14 @@ jobs:
       with:
         name: TestResults
         path: ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx
+
+    - name: Generate Test Summary Table
+        run: |
+          echo "## Unit Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Test | Outcome | Duration |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|---------|----------|" >> $GITHUB_STEP_SUMMARY
+          grep -oP '<UnitTestResult testName="\K[^"]+' ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx | while read test; do
+            outcome=$(grep -oP "testName=\"$test\" outcome=\"\K[^\"]+" ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx)
+            duration=$(grep -oP "testName=\"$test\" .* duration=\"\K[^\"]+" ./tests/NewsFetcherAPI.UnitTests/TestResults/*.trx)
+            echo "| $test | $outcome | $duration |" >> $GITHUB_STEP_SUMMARY
+          done
