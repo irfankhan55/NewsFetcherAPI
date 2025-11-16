@@ -77,4 +77,4 @@ jobs:
             done
           fi
         done
-      shell: /usr/bin/bash
+      shell: bash
